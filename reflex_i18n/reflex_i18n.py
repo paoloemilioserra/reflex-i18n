@@ -47,16 +47,24 @@ class State(rx.State):
 def index() -> rx.Component:
 
     return rx.container(
-        rx.text(State.strings['hello']),
-        rx.text(State.strings['description.part1']),
-        rx.text(State.strings['description.part2']),
-        rx.button(
-            'EN',
-            on_click=lambda: State.click_language('en')
+        rx.hstack(
+            rx.button(
+                'EN',
+                on_click=lambda: State.click_language('en'),
+                padding_right='8px'
+            ),
+            rx.button(
+                'IT',
+                on_click=lambda: State.click_language('it'),
+                padding_right='8px'
+            ),
+            width='100%',
+            spacing='1'
         ),
-        rx.button(
-            'IT',
-            on_click=lambda: State.click_language('it')
+        rx.container(
+            rx.text(State.strings['hello']),
+            rx.text(State.strings['description.part1']),
+            rx.text(State.strings['description.part2']),
         ),
         on_mount=State.update_strings
     )

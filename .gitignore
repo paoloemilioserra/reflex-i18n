@@ -1,8 +1,7 @@
 *.db
 *.py[cod]
-.web
-__pycache__/
-/.idea
-/.idea
 .idea/misc.xml
 .idea/modules.xml
+.web
+/.idea
+__pycache__/

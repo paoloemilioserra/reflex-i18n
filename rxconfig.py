@@ -1,5 +1,5 @@
 import reflex as rx
 
 config = rx.Config(
-    app_name="reflex_i18next",
+    app_name="reflex_i18n",
 )
