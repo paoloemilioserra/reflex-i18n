@@ -6,6 +6,25 @@ import pathlib
 import reflex as rx
 
 
+def key_recursion(t: dict[str, Any], prefix: str = '') -> dict[str, Any]:
+    """
+    Returns a 'flatten' dictionary
+    :param t:
+    :param prefix:
+    :return:
+    """
+    ret = {}
+    for k, v in t.items():
+        if len(prefix) > 0:
+            k = prefix + '.' + k
+
+        if isinstance(v, dict):
+            ret.update(key_recursion(v, k))
+        else:
+            ret[k] = v
+    return ret
+
+
 class DynamicDict(dict):
 
     def __init__(self):
@@ -55,13 +74,12 @@ class DynamicDict(dict):
         super().update(__m, **kwargs)
 
 
-
 class State(rx.State):
     """The app state."""
 
     language: str = 'en'
     path: str = 'assets/locales'
-    strings: dict[str, str] = {}  # DynamicDict()  # json.loads((pathlib.Path(path) / language / 'translation.json').read_text(encoding='utf-8')))
+    strings: dict[str, str] = {}
 
     def click_en(self):
         self.language = 'en'
@@ -71,25 +89,10 @@ class State(rx.State):
         self.language = 'it'
         self.update_strings()
 
-
-    @staticmethod
-    def key_recursion(t: dict[str, Any], prefix: str = '') -> dict[str, Any]:
-        ret = {}
-        for k, v in t.items():
-            if len(prefix) > 0:
-                k = prefix + '.' + k
-
-            if isinstance(v, dict):
-                ret.update(State.key_recursion(v, k))
-            else:
-                ret[k] = v
-        return ret
-
     def update_strings(self):
         dd = DynamicDict()
         dd.update(json.loads((pathlib.Path(self.path) / self.language / 'translation.json').read_text(encoding='utf-8')))
-        # TODO recursively add the the sub keys
-        dd = State.key_recursion(dd)
+        dd = key_recursion(dd)
         self.strings = dd
 
 
