@@ -1,3 +1,7 @@
 {
-  "hello": "Questo è il messaggio 'Ciao Mondo' in Italiano"
+  "hello": "Questo è il messaggio 'Ciao Mondo' in Italiano",
+  "description": {
+    "part1": "Questa è la prima parte",
+    "part2": "Questa è la seconda parte"
+  }
 }

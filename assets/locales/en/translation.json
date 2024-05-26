@@ -1,3 +1,7 @@
 {
-  "hello": "This is the 'Hello World' message in English"
+  "hello": "This is the 'Hello World' message in English",
+  "description": {
+    "part1": "This is the first part",
+    "part2": "This is the second part"
+  }
 }
